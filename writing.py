@@ -20,19 +20,27 @@ class CodeWriter:
         lang_extension = lang_data[3]
 
         file_name = input("What is the name of your file? (do not include the extension)\n")
-        new_file = open(file_name + lang_extension)
+        new_file = open(file_name + lang_extension, "w+")
 
         name = input("What is your name? (Enter n/a if not applicable)\n")
+        if name.lower() != "n/a":
+            new_file.write(lang_front + " " + name + " " + lang_back)
 
         date_yn = input("Do you want today's date in your comment? (y/n)\n")
-        today = date.today()
-        creation_date = "%d/%d/%d" % (today.month, today.day, today.year)
+        if date_yn.lower() == "y":
+            today = date.today()
+            creation_date = "%d/%d/%d" % (today.month, today.day, today.year)
+            new_file.write(lang_front + " " + creation_date + " " + lang_back)
 
         your_class = input("What class is this for? (Enter n/a if not applicable)\n")
+        if name.lower() != "n/a":
+            new_file.write(lang_front + " " + your_class + " " + lang_back)
 
         done = input("Do you want to write anything else in your comment? (y/n)\n")
         while done.lower() != "n":
             next_input = input("What would you like your next line to say?\n")
+            new_file.write(lang_front + " " + next_input + " " + lang_back)
+            
             done = input("Do you want to write anything else in your comment? (y/n)\n")
 
     def unknown_lang(self, lang):
