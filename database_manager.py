@@ -4,11 +4,11 @@ class LangDB:
     def __init__(self):
         self.conn = sqlite3.connect("languages.db")
         self.curr = self.conn.cursor()
-        self.curr.execute("CREATE TABLE IF NOT EXISTS langs (name TEXT, front TEXT, back TEXT)")
+        self.curr.execute("CREATE TABLE IF NOT EXISTS langs (name TEXT, front TEXT, back TEXT, extension TEXT)")
         self.conn.commit()
 
-    def insert(self, name, front, back):
-        self.curr.execute("INSERT INTO langs VALUES (?, ?, ?)", (name, front, back))
+    def insert(self, name, front, back, extension):
+        self.curr.execute("INSERT INTO langs VALUES (?, ?, ?, ?)", (name, front, back, extension))
         self.conn.commit()
 
     def view_all(self):
