@@ -33,4 +33,7 @@ filename_text = tkinter.StringVar()
 e4 = tkinter.Entry(window, textvariable=filename_text)
 e4.grid(row=1, column=3)
 
+b1 = tkinter.Button(window, text="Submit", command=)
+b1.grid(row=2, column=0)
+
 window.mainloop()

@@ -11,7 +11,22 @@ class CodeWriter:
         except IndexError:
             self.unknown_lang(lang)
 
-        self.ask_questions(lang)
+        #self.ask_questions(lang)
+
+    def unknown_lang(self, lang):
+        print("I don't think I've heard of %s. Can you help me learn?" % lang)
+        front = input("How do you begin a single-line comment in %s?\n" % lang)
+
+        back_yn = input("Does %s need something to end a single-line comment? (y/n)\n" % lang)
+        if back_yn.lower()[0] == "y":
+            back = input("How do you end a single-line comment in %s?\n" % lang)
+        else:
+            back = ""
+
+        extension = input("Finally, what is the file extension for %s? (include the '.', like '.py')\n" % lang)
+        print("Thanks for the info!")
+
+        self.db.insert(lang, front, back, extension)
 
     def ask_questions(self, lang):
         lang_data = self.db.search_by_name(lang)
@@ -43,17 +58,4 @@ class CodeWriter:
             
             done = input("Do you want to write anything else in your comment? (y/n)\n")
 
-    def unknown_lang(self, lang):
-        print("I don't think I've heard of %s. Can you help me learn?" % lang)
-        front = input("How do you begin a single-line comment in %s?\n" % lang)
-
-        back_yn = input("Does %s need something to end a single-line comment? (y/n)\n" % lang)
-        if back_yn.lower()[0] == "y":
-            back = input("How do you end a single-line comment in %s?\n" % lang)
-        else:
-            back = ""
-
-        extension = input("Finally, what is the file extension for %s? (include the '.', like '.py')\n" % lang)
-        print("Thanks for the info!")
-
-        self.db.insert(lang, front, back, extension)
+    # def submit_answers(self, lang, file_name, name, your_class): gonna be used with the button
