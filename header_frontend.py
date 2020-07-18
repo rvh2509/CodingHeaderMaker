@@ -2,38 +2,24 @@ from writing import CodeWriter
 import tkinter
 
 #cw = CodeWriter()
+
 window = tkinter.Tk()
 window.wm_title("Coding Header Maker")
 
-l1 = tkinter.Label(window, text="Name")
-l1.grid(row=0, column=0)
+main_frame = tkinter.Frame(window)
 
-l2 = tkinter.Label(window, text="Date")
-l2.grid(row=0, column=2)
+def clear_screen(frame):
+    widgets = frame.grid_slaves()
+    for widget in widgets:
+        widget.destroy()
 
-l3 = tkinter.Label(window, text="Class")
-l3.grid(row=1, column=0)
+def ask_name():
 
-l4 = tkinter.Label(window, text="File Name")
-l4.grid(row=1, column=2)
+def ask_date():
 
-name_text = tkinter.StringVar()
-e1 = tkinter.Entry(window, textvariable=name_text)
-e1.grid(row=0, column=1)
+def ask_lang():
 
-date_text = tkinter.StringVar()
-e2 = tkinter.Entry(window, textvariable=date_text)
-e2.grid(row=0, column=3)
+def ask_class():
 
-class_text = tkinter.StringVar()
-e3 = tkinter.Entry(window, textvariable=class_text)
-e3.grid(row=1, column=1)
-
-filename_text = tkinter.StringVar()
-e4 = tkinter.Entry(window, textvariable=filename_text)
-e4.grid(row=1, column=3)
-
-b1 = tkinter.Button(window, text="Submit")
-b1.grid(row=2, column=0)
-
+def ask_extra():
 window.mainloop()

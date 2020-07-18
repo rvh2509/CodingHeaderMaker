@@ -11,7 +11,7 @@ class CodeWriter:
         except IndexError:
             self.unknown_lang(lang)
 
-        #self.ask_questions(lang)
+        self.ask_questions(lang)
 
     def unknown_lang(self, lang):
         print("I don't think I've heard of %s. Can you help me learn?" % lang)
