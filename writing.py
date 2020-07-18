@@ -2,6 +2,7 @@ from database_manager import LangDB
 from datetime import date
 
 class CodeWriter:
+    # TODO: Change how __init__ works to accomodate for GUI
     def __init__(self):
         self.db = LangDB()
         lang = input("What language are you working in today?\n")
