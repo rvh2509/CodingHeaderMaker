@@ -26,7 +26,7 @@ class LangDB:
         self.conn.commit()
 
     # TODO: Make sure to do something for when they say n/a
-    def write_to_file(self, lang, file_name, name, creation_date, your_class, extra):
+    def write_to_file(self, lang, file_name, name, creation_date, your_class, extras):
         lang_data = self.search_by_name(lang)
         lang_front = lang_data[1]
         lang_back = lang_data[2]
@@ -36,7 +36,9 @@ class LangDB:
         new_file.write(lang_front + " " + name + " " + lang_back + "\n")
         new_file.write(lang_front + " " + creation_date + " " + lang_back + "\n")
         new_file.write(lang_front + " " + your_class + " " + lang_back + "\n")
-        new_file.write(lang_front + " " + extra + " " + lang_back + "\n")
+
+        for line in extras:
+            new_file.write(lang_front + " " + line + " " + lang_back + "\n")
 
     def __del__(self):
         self.conn.close()
