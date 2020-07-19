@@ -25,5 +25,18 @@ class LangDB:
         self.curr.execute("DELETE FROM langs WHERE name=?", (name,))
         self.conn.commit()
 
+    # TODO: Make sure to do something for when they say n/a
+    def write_to_file(self, lang, file_name, name, creation_date, your_class, extra):
+        lang_data = self.search_by_name(lang)
+        lang_front = lang_data[1]
+        lang_back = lang_data[2]
+        lang_extension = lang_data[3]
+
+        new_file = open(file_name + lang_extension, "w+")
+        new_file.write(lang_front + " " + name + " " + lang_back + "\n")
+        new_file.write(lang_front + " " + creation_date + " " + lang_back + "\n")
+        new_file.write(lang_front + " " + your_class + " " + lang_back + "\n")
+        new_file.write(lang_front + " " + extra + " " + lang_back + "\n")
+
     def __del__(self):
         self.conn.close()
