@@ -191,7 +191,7 @@ def get_extra(lines):
     gextra_entry = tkinter.Entry(window, textvariable=extra_text)
     gextra_entry.grid(row=1, column=0)
 
-    sub = tkinter.Button(window, text="Submit", command=lambda: [lines.append(extra_text.get()), ask_extra(lines)])
+    sub = tkinter.Button(window, text="Submit", command=lambda: [lines.append(extra_text.get()), extra_text.set(""), ask_extra(lines)])
     sub.grid(row=2, column=0)
 
 def another_file(extras):
