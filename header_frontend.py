@@ -131,7 +131,26 @@ def ask_class():
     na.grid(row=2, column=1)
 
 def ask_extra(lines):
-    
+    clear_screen(window)
+    aextra_label = tkinter.Label(window, text="Would you like to add another line to your comment?")
+    aextra_label.grid(row=0, column=0)
+
+    yes = tkinter.Button(window, text="Yes", command=lambda: get_extra(lines))
+    yes.grid(row=1, column=0)
+
+    no = tkinter.Button(window, text="No", command=ask_class)
+    no.grid(row=1, column=1)
+
+def get_extra(lines):
+    clear_screen(window)
+    gextra_label = tkinter.Label(window, text="What line would you like to add?")
+    gextra_label.grid(row=0, column=0)
+
+    gextra_entry = tkinter.Entry(window, textvariable=extra_text)
+    gextra_entry.grid(row=1, column=0)
+
+    sub = tkinter.Button(window, text="Submit", command=lambda: [lines.append(extra_text.get()), ask_extra(lines)])
+    sub.grid(row=2, column=0)
 
 ask_lang()
 window.mainloop()
