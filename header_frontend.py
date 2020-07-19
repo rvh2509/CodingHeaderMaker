@@ -107,17 +107,31 @@ def ask_date():
     yes = tkinter.Button(window, text="Yes", command=date_yes)
     yes.grid(row=1, column=0)
 
-    no = tkinter.Button(window, text="No")#, command=ask_class)
+    no = tkinter.Button(window, text="No", command=ask_class)
     no.grid(row=1, column=1)
 
 def date_yes():
     today = date.today()
     creation_date = "%d/%d/%d" % (today.month, today.day, today.year)
     date_text.set(creation_date)
-    #ask_class()
+    ask_class()
 
-#def ask_class():
+def ask_class():
+    clear_screen(window)
+    class_label = tkinter.Label(window, text="What class is this for?")
+    class_label.grid(row=0, column=0)
 
-#def ask_extra():
+    class_entry = tkinter.Entry(window, textvariable=class_text)
+    class_entry.grid(row=1, column=0)
+
+    sub = tkinter.Button(window, text="Submit", command=lambda: ask_extra([]))
+    sub.grid(row=2, column=0)
+
+    na = tkinter.Button(window, text="Not Applicable", command=lambda: [class_text.set(""), ask_extra([])])
+    na.grid(row=2, column=1)
+
+def ask_extra(lines):
+    
+
 ask_lang()
 window.mainloop()
