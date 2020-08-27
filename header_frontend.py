@@ -14,6 +14,10 @@ file_text = tkinter.StringVar()
 name_text = tkinter.StringVar()
 class_text = tkinter.StringVar()
 extra_text = tkinter.StringVar()
+db_text = tkinter.StringVar()
+db_front = tkinter.StringVar()
+db_back = tkinter.StringVar()
+db_extension = tkinter.StringVar()
 
 lang = ""
 front = ""
@@ -40,6 +44,10 @@ def set_back(str_var):
     global back
     back = str_var.get()
 
+def set_extension(str_var):
+    global extension
+    extension = str_var.get()
+
 def set_file(str_var):
     global file_name
     file_name = str_var.get()
@@ -62,6 +70,9 @@ def ask_lang():
 
     sub = tkinter.Button(window, text="Submit", command=lambda: [set_lang(lang_text), lang_work()])
     sub.grid(row=2, column=0)
+
+    db_mode_button = tkinter.Button(window, text="Update Database", command=database_mode)
+    db_mode_button.grid(row=3, column=0)
 
 def lang_work():
     try:
@@ -116,7 +127,7 @@ def unknown_extension():
     extension_entry = tkinter.Entry(window, textvariable=lang_extension)
     extension_entry.grid(row=1, column=0)
 
-    sub = tkinter.Button(window, text="Submit", command=lambda: [db.insert(lang, front, back, lang_extension.get()), ask_file()])
+    sub = tkinter.Button(window, text="Submit", command=lambda: [set_extension(lang_extension), db.insert(lang, front, back, extension), ask_file()])
     sub.grid(row=2, column=0)
 
 def ask_file():
@@ -210,6 +221,55 @@ def another_file(extras):
 # use this to update the database without needing to make a file
 def database_mode():
     clear_screen(window)
+    db_label = tkinter.Label(window, text="Please enter all of the relevant information about your language.")
+    db_label.grid(row=0, column=0)
+    
+    db_name_label = tkinter.Label(window, text="Language Name:")
+    db_name_label.grid(row=1, column=0)
+
+    db_name_entry = tkinter.Entry(window, textvariable=db_text)
+    db_name_entry.grid(row=2, column=0)
+    set_lang(db_text)
+
+    db_front_label = tkinter.Label(window, text="Start of a single-line comment:")
+    db_front_label.grid(row=3, column=0)
+
+    db_front_entry = tkinter.Entry(window, textvariable=db_front)
+    db_front_entry.grid(row=4, column=0)
+    set_front(db_front)
+
+    db_end_label = tkinter.Label(window, text="End of a single-line comment:")
+    db_end_label.grid(row=5, column=0)
+
+    db_end_entry = tkinter.Entry(window, textvariable=db_back)
+    db_end_entry.grid(row=6, column=0)
+    set_back(db_back)
+
+    db_extension_label = tkinter.Label(window, text="Language extension:")
+    db_extension_label.grid(row=7, column=0)
+
+    db_extension_entry = tkinter.Entry(window, textvariable=db_extension)
+    db_extension_entry.grid(row=8, column=0)
+    set_extension(db_extension)
+
+    sub = tkinter.Button(window, text="Submit", command=database_mode_check)
+    sub.grid(row=9, column=0)
+
+def database_mode_check():
+    try:
+        db.search_by_name(lang)
+    except IndexError:
+        db.insert(lang, front, back, extension)
+    else:
+        database_mode_known_lang()
+
+def database_mode_known_lang():
+    clear_screen(window)
+    db_known_label = tkinter.Label(window, text="Your language is already in the database")
+    db_known_label.grid(row=0, column=0)
+
+    main_menu = tkinter.Button(window, text="Main Menu", command=ask_lang)
+    main_menu.grid(row=1, column=0)
 
 ask_lang()
 window.mainloop()
