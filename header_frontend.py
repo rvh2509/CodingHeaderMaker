@@ -207,5 +207,9 @@ def another_file(extras):
     no = tkinter.Button(window, text="No", command=lambda: window.destroy())
     no.grid(row=1, column=1)
 
+# use this to update the database without needing to make a file
+def database_mode():
+    clear_screen(window)
+
 ask_lang()
 window.mainloop()
