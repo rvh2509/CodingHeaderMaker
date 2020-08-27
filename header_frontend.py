@@ -60,6 +60,19 @@ def set_class(str_var):
     global your_class
     your_class = str_var.get()
 
+def main_menu():
+    mm_label = tkinter.Label(window, text="Welcome to the Coding Header Maker!")
+    mm_label.grid(row=0, column=0)
+    
+    new_file = tkinter.Button(window, text="New File", command=ask_lang)
+    new_file.grid(row=1, column=0)
+
+    db_mode_button = tkinter.Button(window, text="Update Database", command=database_mode)
+    db_mode_button.grid(row=2, column=0)
+
+    db_view_button = tkinter.Button(window, text="View Database", command=view_database)
+    db_view_button.grid(row=3, column=0)
+
 def ask_lang():
     clear_screen(window)
     lang_label = tkinter.Label(window, text="What language are you working in today?")
@@ -70,12 +83,6 @@ def ask_lang():
 
     sub = tkinter.Button(window, text="Submit", command=lambda: [set_lang(lang_text), lang_work()])
     sub.grid(row=2, column=0)
-
-    db_mode_button = tkinter.Button(window, text="Update Database", command=database_mode)
-    db_mode_button.grid(row=3, column=0)
-
-    db_view_button = tkinter.Button(window, text="View Database", command=view_database)
-    db_view_button.grid(row=4, column=0)
 
 def lang_work():
     try:
@@ -258,6 +265,9 @@ def database_mode():
     sub = tkinter.Button(window, text="Submit", command=database_mode_check)
     sub.grid(row=9, column=0)
 
+    main_menu = tkinter.Button(window, text="Main Menu", command=main_menu)
+    main_menu.grid(row=10, column=0)
+
 def database_mode_check():
     try:
         db.search_by_name(lang)
@@ -275,13 +285,12 @@ def database_mode_known_lang():
     main_menu.grid(row=1, column=0)
 
 def view_database():
-    db.delete_by_name("")
     clear_screen(window)
     db_list = tkinter.Listbox(window, height=6, width=35)
-    db_list.grid(row=2, column=0, rowspan=6, columnspan=2)
+    db_list.grid(row=0, column=0, rowspan=6, columnspan=2)
 
     db_scrollbar = tkinter.Scrollbar(window)
-    db_scrollbar.grid(row=2, column=2, rowspan=6)
+    db_scrollbar.grid(row=0, column=2, rowspan=6)
 
     db_list.configure(yscrollcommand=db_scrollbar.set)
     db_scrollbar.configure(command=db_list.yview)
@@ -290,5 +299,8 @@ def view_database():
     for row in db.view_all() :
         db_list.insert(tkinter.END, row)
 
-ask_lang()
+    main_menu = tkinter.Button(window, text="Main Menu", command=main_menu)
+    main_menu.grid(row=7, column=0)
+
+main_menu()
 window.mainloop()
