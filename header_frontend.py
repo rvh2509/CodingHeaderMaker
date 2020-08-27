@@ -74,6 +74,9 @@ def ask_lang():
     db_mode_button = tkinter.Button(window, text="Update Database", command=database_mode)
     db_mode_button.grid(row=3, column=0)
 
+    db_view_button = tkinter.Button(window, text="View Database", command=view_database)
+    db_view_button.grid(row=4, column=0)
+
 def lang_work():
     try:
         db.search_by_name(lang)
@@ -270,6 +273,22 @@ def database_mode_known_lang():
 
     main_menu = tkinter.Button(window, text="Main Menu", command=ask_lang)
     main_menu.grid(row=1, column=0)
+
+def view_database():
+    db.delete_by_name("")
+    clear_screen(window)
+    db_list = tkinter.Listbox(window, height=6, width=35)
+    db_list.grid(row=2, column=0, rowspan=6, columnspan=2)
+
+    db_scrollbar = tkinter.Scrollbar(window)
+    db_scrollbar.grid(row=2, column=2, rowspan=6)
+
+    db_list.configure(yscrollcommand=db_scrollbar.set)
+    db_scrollbar.configure(command=db_list.yview)
+
+    db_list.delete(0, tkinter.END)
+    for row in db.view_all() :
+        db_list.insert(tkinter.END, row)
 
 ask_lang()
 window.mainloop()
