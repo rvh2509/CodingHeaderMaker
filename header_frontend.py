@@ -61,6 +61,8 @@ def set_class(str_var):
     your_class = str_var.get()
 
 def main_menu():
+    clear_screen(window)
+
     mm_label = tkinter.Label(window, text="Welcome to the Coding Header Maker!")
     mm_label.grid(row=0, column=0)
     
@@ -75,6 +77,8 @@ def main_menu():
 
 def ask_lang():
     clear_screen(window)
+    lang_text.set("")
+
     lang_label = tkinter.Label(window, text="What language are you working in today?")
     lang_label.grid(row=0, column=0)
 
@@ -94,6 +98,8 @@ def lang_work():
 
 def unknown_front():
     clear_screen(window)
+    lang_front.set("")
+
     text = "I don't think I've heard of %s. Can you help me learn?" % lang
     front_label1 = tkinter.Label(window, text=text)
     front_label1.grid(row=0, column=0)
@@ -109,6 +115,7 @@ def unknown_front():
 
 def unknown_back():
     clear_screen(window)
+
     back_label = tkinter.Label(window, text="Does %s need something to end a single-line comment?" % lang)
     back_label.grid(row=0, column=0)
 
@@ -120,6 +127,8 @@ def unknown_back():
 
 def unknown_back_yes():
     clear_screen(window)
+    lang_back.set("")
+
     back_label = tkinter.Label(window, text="How do you end a single-line comment in %s?" % lang)
     back_label.grid(row=0, column=0)
 
@@ -131,6 +140,8 @@ def unknown_back_yes():
 
 def unknown_extension():
     clear_screen(window)
+    lang_extension.set("")
+
     extension_label = tkinter.Label(window, text="Finally, what is the file extension for %s? (include the '.', like '.py')" % lang)
     extension_label.grid(row=0, column=0)
 
@@ -142,6 +153,8 @@ def unknown_extension():
 
 def ask_file():
     clear_screen(window)
+    file_text.set("")
+
     file_label = tkinter.Label(window, text="What's the name of your file (don't include the extension)?")
     file_label.grid(row=0, column=0)
 
@@ -153,6 +166,8 @@ def ask_file():
 
 def ask_name():
     clear_screen(window)
+    name_text.set("")
+
     name_label = tkinter.Label(window, text="What's your name?")
     name_label.grid(row=0, column=0)
 
@@ -164,6 +179,7 @@ def ask_name():
 
 def ask_date():
     clear_screen(window)
+
     date_label = tkinter.Label(window, text="Would you like today's date in your comment?")
     date_label.grid(row=0, column=0)
 
@@ -181,6 +197,8 @@ def date_yes():
 
 def ask_class():
     clear_screen(window)
+    class_text.set("")
+
     class_label = tkinter.Label(window, text="What class is this for?")
     class_label.grid(row=0, column=0)
 
@@ -206,6 +224,8 @@ def ask_extra(lines):
 
 def get_extra(lines):
     clear_screen(window)
+    extra_text.set("")
+
     gextra_label = tkinter.Label(window, text="What line would you like to add?")
     gextra_label.grid(row=0, column=0)
 
@@ -219,6 +239,7 @@ def another_file(extras):
     db.write_to_file(lang, file_name, name, creation_date, your_class, extras)
 
     clear_screen(window)
+
     gextra_label = tkinter.Label(window, text="Would you like to make another file?")
     gextra_label.grid(row=0, column=0)
 
@@ -231,6 +252,11 @@ def another_file(extras):
 # use this to update the database without needing to make a file
 def database_mode():
     clear_screen(window)
+    db_text.set("")
+    db_front.set("")
+    db_back.set("")
+    db_extension.set("")
+
     db_label = tkinter.Label(window, text="Please enter all of the relevant information about your language.")
     db_label.grid(row=0, column=0)
     
@@ -265,20 +291,29 @@ def database_mode():
     sub = tkinter.Button(window, text="Submit", command=database_mode_check)
     sub.grid(row=9, column=0)
 
-    main_menu = tkinter.Button(window, text="Main Menu", command=main_menu)
-    main_menu.grid(row=10, column=0)
+    mm_button = tkinter.Button(window, text="Main Menu", command=main_menu)
+    mm_button.grid(row=10, column=0)
 
 def database_mode_check():
     try:
         db.search_by_name(lang)
     except IndexError:
         db.insert(lang, front, back, extension)
+        database_mode_new_lang()
     else:
         database_mode_known_lang()
 
 def database_mode_known_lang():
     clear_screen(window)
-    db_known_label = tkinter.Label(window, text="Your language is already in the database")
+    db_known_label = tkinter.Label(window, text="Your language is already in the database.")
+    db_known_label.grid(row=0, column=0)
+
+    mm_button = tkinter.Button(window, text="Main Menu", command=main_menu)
+    mm_button.grid(row=1, column=0)
+
+def database_mode_new_lang():
+    clear_screen(window)
+    db_known_label = tkinter.Label(window, text="Your language has been added to the database!")
     db_known_label.grid(row=0, column=0)
 
     main_menu = tkinter.Button(window, text="Main Menu", command=ask_lang)
@@ -299,8 +334,8 @@ def view_database():
     for row in db.view_all() :
         db_list.insert(tkinter.END, row)
 
-    main_menu = tkinter.Button(window, text="Main Menu", command=main_menu)
-    main_menu.grid(row=7, column=0)
+    mm_button = tkinter.Button(window, text="Main Menu", command=main_menu)
+    mm_button.grid(row=7, column=0)
 
 main_menu()
 window.mainloop()
