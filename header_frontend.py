@@ -322,6 +322,7 @@ def database_mode_new_lang():
 
 def view_database():
     clear_screen(window)
+    db.delete_by_name("")
     db_list = tkinter.Listbox(window, height=6, width=35)
     db_list.grid(row=0, column=0, rowspan=6, columnspan=2)
 
@@ -333,7 +334,13 @@ def view_database():
 
     db_list.delete(0, tkinter.END)
     for row in db.view_all() :
-        db_list.insert(tkinter.END, row)
+        str = row[0] + " " + row[1] + " " 
+        if row[2] != "":
+            str = str + row[2] + " "
+
+        str = str + row[3]
+
+        db_list.insert(tkinter.END, str)
 
     mm_button = tkinter.Button(window, text="Main Menu", command=main_menu)
     mm_button.grid(row=7, column=0)
