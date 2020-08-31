@@ -33,7 +33,10 @@ class LangDB:
 
         new_file = open(file_name + lang_extension, "w+")
         new_file.write(lang_front + " " + name + " " + lang_back + "\n")
-        new_file.write(lang_front + " " + creation_date + " " + lang_back + "\n")
+        
+        if creation_date != "":
+            new_file.write(lang_front + " " + creation_date + " " + lang_back + "\n")
+
         new_file.write(lang_front + " " + your_class + " " + lang_back + "\n")
 
         for line in extras:
