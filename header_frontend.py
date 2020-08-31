@@ -22,6 +22,7 @@ db_extension = tkinter.StringVar()
 lang = ""
 front = ""
 back = ""
+extension = ""
 file_name = ""
 name = ""
 creation_date = ""
