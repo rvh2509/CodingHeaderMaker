@@ -337,7 +337,6 @@ def view_database():
         str = row[0] + " " + row[1] + " " 
         if row[2] != "":
             str = str + row[2] + " "
-
         str = str + row[3]
 
         db_list.insert(tkinter.END, str)
