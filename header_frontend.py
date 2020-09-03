@@ -149,8 +149,18 @@ def unknown_extension():
     extension_entry = tkinter.Entry(window, textvariable=lang_extension)
     extension_entry.grid(row=1, column=0)
 
-    sub = tkinter.Button(window, text="Submit", command=lambda: [set_extension(lang_extension), db.insert(lang, front, back, extension), ask_file()])
+    sub = tkinter.Button(window, text="Submit", command=lambda: test_extension(lang_extension.get()))
     sub.grid(row=2, column=0)
+
+def test_extension(ext):
+    if ext[0] == ".":
+        set_extension(ext)
+        db.insert(lang, front, back, extension)
+    else:
+        invalid_extension()
+
+def invalid_extension():
+    clear_screen(window)
 
 def ask_file():
     clear_screen(window)
