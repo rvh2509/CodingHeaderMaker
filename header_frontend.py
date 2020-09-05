@@ -156,6 +156,7 @@ def test_extension(ext):
     if ext[0] == ".":
         set_extension(ext)
         db.insert(lang, front, back, extension)
+        ask_file()
     else:
         invalid_extension()
 
