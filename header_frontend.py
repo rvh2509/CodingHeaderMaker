@@ -161,6 +161,16 @@ def test_extension(ext):
 
 def invalid_extension():
     clear_screen(window)
+    lang_extension.set("")
+
+    inv_extension_label = tkinter.Label(window, text="Please give a valid extension (such as .py, .java, etc).")
+    inv_extension_label.grid(row=0, column=0)
+
+    inv_extension_entry = tkinter.Entry(window, textvariable=lang_extension)
+    inv_extension_entry.grid(row=1, column=0)
+
+    sub = tkinter.Button(window, text="Submit", command=lambda: test_extension(lang_extension.get()))
+    sub.grid(row=2, column=0)
 
 def ask_file():
     clear_screen(window)
